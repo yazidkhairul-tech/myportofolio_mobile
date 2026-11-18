@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:myportofolio_mobile/widgets/left_drawer.dart';
+import 'package:myportofolio_mobile/widgets/project_card.dart';
 
 /// Halaman utama aplikasi portofolio pribadi (StatelessWidget).
 ///
@@ -7,7 +9,7 @@ import 'package:flutter/material.dart';
 class MyHomePage extends StatelessWidget {
   MyHomePage({super.key});
 
-  // TODO: Ganti dengan NPM, Nama Lengkap, dan Kelas PBP asli kamu.
+  // Data identitas: NPM, Nama Lengkap, dan Kelas PBP.
   final String npm = "2406xxxxxx";
   final String nama = "Yazid Khairul";
   final String kelas = "PBP A";
@@ -106,6 +108,7 @@ class MyHomePage extends StatelessWidget {
           ),
         ],
       ),
+      drawer: const LeftDrawer(),
       // SingleChildScrollView mencegah overflow pada layar berukuran kecil.
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -371,75 +374,6 @@ class ItemHomepage {
   final Color color;
 
   ItemHomepage(this.name, this.icon, this.color);
-}
-
-/// Kartu tombol aksi interaktif yang menampilkan [SnackBar] saat ditekan.
-class ItemCard extends StatelessWidget {
-  final ItemHomepage item;
-
-  const ItemCard(this.item, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: item.color,
-      elevation: 3.0,
-      shadowColor: item.color.withValues(alpha: 0.4),
-      borderRadius: BorderRadius.circular(14),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(14),
-        // Aksi ketika kartu ditekan oleh pengguna.
-        onTap: () {
-          // Sembunyikan SnackBar sebelumnya agar notifikasi tidak menumpuk.
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                behavior: SnackBarBehavior.floating,
-                backgroundColor: item.color,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                content: Text(
-                  "Kamu telah menekan tombol ${item.name}!",
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-            );
-        },
-        child: Container(
-          padding: const EdgeInsets.all(10),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  item.icon,
-                  color: Colors.white,
-                  size: 30.0,
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  item.name,
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 12.5,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 }
 
 /// Badge kecil untuk menampilkan tag teknologi pada bagian ringkasan.
